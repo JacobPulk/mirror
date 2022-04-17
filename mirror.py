@@ -546,7 +546,7 @@ def get_already_mirrored_MOIDs():
         print("Got "+str(len(already_mirrored_MOIDs))+" IDs.")
         update_completes(already_mirrored_MOIDs, False)
         
-    return already_mirrored_MOIDs
+    return set(already_mirrored_MOIDs)
 
 def backup_results(parsed):
 
@@ -890,10 +890,10 @@ def mirror_wrapper(num_to_mirror, already_mirrored_MOIDs, MO_page_to_start):
     LOAD_taxon_dictionary()
     LOAD_log()
 
-    num_mirrored = 0
+    mirrored_MOIDs = set([])
     MO_page = MO_page_to_start
     
-    while num_mirrored < num_to_mirror:
+    while len(mirrored_MOIDs) < num_to_mirror:
     
         print("\nCollecting some full observations from MO.")
         available_MO_obses = mo_api.get_full_obses(MO_username, MO_page, MO_API_key)
@@ -961,16 +961,16 @@ def mirror_wrapper(num_to_mirror, already_mirrored_MOIDs, MO_page_to_start):
             update_completes([MOID], True)
             update_incompletes(iNatID, False)
             
-            print("Done mirroring observation.")
-            
-            num_mirrored += 1
-            print("Done mirroring observation "+str(num_mirrored)+" of "+str(num_to_mirror)+".")
-            if num_mirrored >= num_to_mirror:
+            mirrored_MOIDs.add(MOID)
+            print("Done mirroring observation "+str(len(mirrored_MOIDs))+" of "+str(num_to_mirror)+".")
+            if len(mirrored_MOIDs) >= num_to_mirror:
                 break
                 
             INPUT_allow_quit()
                 
         MO_page += 1
+        
+    return mirrored_MOIDs
     
 print("\nWelcome to the mirroring.")
 
@@ -981,14 +981,15 @@ set_iNat_info()
 
 deal_with_incompletes()
 
+print("\nGetting IDs of your observations on MO. This will take several seconds.")
+MOIDs = mo_api.get_all_observations(MO_username)
+print("Got "+str(len(MOIDs))+" IDs.")
+
+already_mirrored_MOIDs = get_already_mirrored_MOIDs()
+    
 while True:
 
-    print("\nGetting IDs of your observations on MO. This will take several seconds.")
-    MOIDs = mo_api.get_all_observations(MO_username)
-    print("Got "+str(len(MOIDs))+" IDs.")
-
-    already_mirrored_MOIDs = get_already_mirrored_MOIDs()
-    mirrorable_MOIDs = set(MOIDs).difference(set(already_mirrored_MOIDs))
+    mirrorable_MOIDs = set(MOIDs).difference(already_mirrored_MOIDs)
     copula = "is" if len(mirrorable_MOIDs) == 1 else "are"
     print("\n"+str(len(mirrorable_MOIDs))+" of your observations "+copula+" mirrorable (not yet on iNat).")
 
@@ -998,12 +999,17 @@ while True:
     print("\nMirroring "+number_chunk+".")
     MO_page_to_start = calculate_MO_page_to_start(MOIDs, list(mirrorable_MOIDs))
 
-    mirror_wrapper(num_to_mirror, already_mirrored_MOIDs, MO_page_to_start)
+    newly_mirrored_MOIDs = mirror_wrapper(num_to_mirror, list(already_mirrored_MOIDs), MO_page_to_start)
 
-    print("\n\nDone mirroring "+number_chunk+". Start again?")
+    if len(newly_mirrored_MOIDs) < len(mirrorable_MOIDs):
+        print("\nDone mirroring "+number_chunk+". Start again?")
 
-    if INPUT_yes_or_no():
-        pass
+        if INPUT_yes_or_no():
+            already_mirrored_MOIDs = already_mirrored_MOIDs | newly_mirrored_MOIDs
+            continue
+        else:
+            print("\nGoodbye.\n")
+            break
+            
     else:
-        print("\nGoodbye.\n")
-        break
+        print("\n\nDone mirroring all available observations. Goodbye.\n")

@@ -206,7 +206,7 @@ def get_JWT_PKCE():
     full_URL = build_request_URL(base_URL, endpoint, params)
     
     request_pause("iNat", 0)
-    print("\nMake sure you are logged in to your target iNat account (or not logged in to any). Select the entire following URL and press enter (NOT ctrl+c) to copy it, then navigate to it in your browser. Log into iNat if prompted there; either way return here.\n")
+    print("\nMake sure you're not logged in to the wrong iNaturalist account (you probably aren't), and that your browser doesn't have redirects disabled (it probably doesn't). Select the entire following URL and press enter (NOT ctrl+c) to copy it, then navigate to it in your browser. Authorize there and return here.\n")
     print(full_URL)
     
     code = get_param_from_socket("code")
