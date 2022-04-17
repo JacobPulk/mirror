@@ -4,9 +4,9 @@ This is a command-line program that will copy your observations, one-way, from [
 
 ## What you will have to do
 
-You will have to authorize this program to read/write your own observations on both MO and iNat, which is very easy. At the start, when prompted, you will have to (1) [create an "API Key" on MO](https://mushroomobserver.org/account/api_keys) and supply it; and (2) enter a generated URL on inaturalist.com in your browser, where iNat will confirm your login and induce your browser to send this program the necessary access token.
+Just download and extract the latest .rar file in [Releases](https://github.com/JacobPulk/mirror/releases/), and run mirror.exe inside. Hopefully, everything is self-explanatory.
 
-Enter the number of observations you want to copy over, and let it run.
+You will not have to share your MO or iNat password. You WILL have to authorize this program to read/write your observations on both platforms, which is very easy. At the start, you'll be prompted to (1) [create an "API Key" on MO](https://mushroomobserver.org/account/api_keys) and supply it; and (2) enter a generated inaturalist.com URL in your browser, where iNat will confirm your login and induce your browser send this program the necessary access token.
 
 ## What will be preserved on iNaturalist
 
