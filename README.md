@@ -18,17 +18,17 @@ GPS coordinates (directly if specified; from the center of the rectangle for the
 
 GPS uncertainty radius (20m if GPS specified; 1/2 larger of rectangle width or length for named location if unspecified)
 
-GPS privacy ("Obscured" on iNat if "Hidden" on MO)
+GPS privacy ("Obscured" on iNat if and only if "Hidden" on MO)
 
 Notes
 
-Images, in order (but BE AWARE that iNat does not preserve full-size images)
+Images, in order (but BEWARE that iNat does not preserve full-size images)
 
-Image captions (indexed to photo #s and added to Notes, as iNat hardly supports photo captions)
+Image captions (indexed to photo #s and added to Notes - iNat hardly supports photo captions)
 
-Observation title, which will be your name proposal on iNat (first tries a human-curated dictionary matching MO names to iNat name IDs, then tries to find a perfect match to an iNat name or its synonyms, then tries to match the first word of the name, or finally defaults to "Life")
+Observation title, which will be your name proposal on iNat (names are first looked up in a human-curated dictionary matching MO names to iNat name IDs, then searched for on iNat for a perfect match (including listed synonyms), then searched for on iNat with just the first word of the name (usually the genus), or finally defaulted to "Life")
 
-All other name proposals, which will be included as the text within that name proposal (including the proposer's MO username and explanation, everyone's votes, and the resulting "MO community vote" as a percentage)
+All other name proposals, which will be included as the text within that name proposal (including the proposer's MO username and justification, everyone's votes, and the resulting "MO community vote" as a percentage)
 
 MO observation ID/URL
 
@@ -80,6 +80,6 @@ Observation log
 
 ## Special features
 
-By default, all observation information provided by the MO API is saved in a folder with the program, so you can analyze or restore it differently later. This includes some things not currently preserved on iNaturalist, marked by \* in the previous section.
+By default, all observation information provided by the MO API is saved in a folder with the program, so you can analyze or restore it differently later. This includes some things not currently preserved on iNaturalist, which are marked by \* in the previous section.
 
-A log is kept indicating all of your observation titles that did not get perfect name matches on iNat (useful for you, to improve them if you can), as well as names that were not in the included dictionary (useful for this project, to add them for the next release).
+A log is kept indicating all of your observation titles that did not get perfect name matches on iNat (useful for you, to manually improve them if you can), as well as names that were not in the included dictionary (useful for this project, to add them for the next release).
