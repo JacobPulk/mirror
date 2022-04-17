@@ -20,11 +20,11 @@ GPS uncertainty radius (20m if GPS specified; 1/2 larger of rectangle width or l
 
 GPS privacy ("Obscured" on iNat if and only if "Hidden" on MO)
 
-Notes
+Observation notes
 
-Images, in order (but BEWARE that iNat does not preserve full-size images)
+All images, in order (but BEWARE that iNat does not preserve full-size images)
 
-Image captions (indexed to photo #s and added to Notes - iNat hardly supports photo captions)
+All image captions (indexed to photo #s and added to Notes - iNat hardly supports photo captions)
 
 Observation title, which will be your name proposal on iNat (names are first looked up in a human-curated dictionary matching MO names to iNat name IDs, then searched for on iNat for a perfect match (including listed synonyms), then searched for on iNat with just the first word of the name (usually the genus), or finally defaulted to "Life")
 
