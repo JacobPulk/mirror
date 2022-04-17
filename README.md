@@ -46,9 +46,11 @@ Date posted to MO
 
 ## What (currently) will not be preserved on iNaturalist
 
-Elevation*
+### Except for full-resolution images, I imagine most users will deem most of this data "inessential". I am mirroring my own observations without it.
 
 Full-resolution images (iNat CANNOT do this)
+
+Elevation*
 
 Image original filenames
 
