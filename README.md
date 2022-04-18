@@ -52,6 +52,8 @@ Full-resolution images (iNat CANNOT do this)
 
 Elevation*
 
+Custom MO observation fields
+
 Image original filenames
 
 Image quality ("No opinion" to "Great")
