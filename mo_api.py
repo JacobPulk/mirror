@@ -75,7 +75,7 @@ def get_API_key_with_API(username):
             
 def get_API_key(username):
 
-    print("Go to https://mushroomobserver.org/account/api_keys in your browser (select and press ENTER - not ctrl+c - to copy from here) and log in if necessary. Create a new key for this app (call it something like \"Mushroom Observer/iNaturalist Mirror\"). Copy and paste (with right-click) the API key here.")
+    print("Go to https://mushroomobserver.org/account/api_keys in your browser (select and press enter to copy from here) and log in if necessary. Create a new key for this app (call it something like \"Mushroom Observer/iNaturalist Mirror\"). Copy and paste (with right-click) the API key here.")
     
     while True:
 
@@ -220,4 +220,3 @@ def view_particular(MOID):
     parsed = careful_request("GET", build_request_URL(base_URL, endpoint, params), headers = USER_AGENT)
     
     print(json.dumps(parsed, indent = 4, sort_keys = False))
-

@@ -206,7 +206,7 @@ def get_JWT_PKCE():
     full_URL = build_request_URL(base_URL, endpoint, params)
     
     request_pause("iNat", 0)
-    print("\nMake sure you're not logged in to the wrong iNaturalist account (you probably aren't), and that your browser doesn't have redirects disabled (it probably doesn't). Select the entire following URL and press enter (NOT ctrl+c) to copy it, then navigate to it in your browser. Authorize there and return here.\n")
+    print("\nMake sure you're not logged in to the wrong iNaturalist account (you probably aren't), and that your browser doesn't have redirects disabled (it probably doesn't). Select the entire following URL and press enter to copy it, then navigate to it in your browser. Authorize there and return here.\n")
     print(full_URL)
     
     code = get_param_from_socket("code")
@@ -302,23 +302,28 @@ def search_for_name(name):
  
 def create_obs(obj, jwt):
 
-
-    base_URL = "https://api.inaturalist.org/v1"
-    endpoint = "/observations"
+    # try 3 times to post & get obs ID back
+    for i in range(3):
     
-    parsed = careful_request("POST", build_request_URL(base_URL, endpoint), data = obj, headers = build_headers(jwt))
+        base_URL = "https://api.inaturalist.org/v1"
+        endpoint = "/observations"
         
-    try:
-        iNatID = str(parsed["id"])
-        
-    except:
-        print("Got result without obs ID. Dumping and quitting.\n")
-        with open("JSON_dump.json", "w", encoding="utf8") as outf:
-            outf.write(json.dumps(parsed, indent = 4, sort_keys = False))
-        exit(1)
-        
-    else:
-        return iNatID
+        parsed = careful_request("POST", build_request_URL(base_URL, endpoint), data = obj, headers = build_headers(jwt))
+            
+        try:
+            iNatID = str(parsed["id"])
+            
+        except:
+            print("Got result without obs ID. Trying again.\n")
+            continue
+            
+        else:
+            return iNatID
+            
+    print("Couldn't post obs. Dumping and quitting.\n")
+    with open("JSON_dump.json", "w", encoding="utf8") as outf:
+        outf.write(json.dumps(parsed, indent = 4, sort_keys = False))
+    exit(1)
         
 def post_fields(iNatID, fields, jwt):
 
@@ -344,6 +349,7 @@ def get_existing_proposal(iNatID):
     
     try:
         identifications = parsed["results"][0]["identifications"]
+        identification = identifications[0]
     
     except:    
         print("Couldn't find expected name proposal. Quitting.\n")
@@ -351,9 +357,7 @@ def get_existing_proposal(iNatID):
     
     else:
         if len(identifications) > 1:
-            print("Warning: Unexpectedly found multiple identifications already on iNat observation.")
-            
-        identification = identifications[0]
+            print("Warning: Unexpectedly found multiple name proposals already on iNat observation.")
             
         identification_ID = str(identification["id"])
         taxon_ID = str(identification["taxon_id"])
@@ -391,7 +395,21 @@ def delete_observation(iNatID, jwt):
     endpoint = "/observations/"+iNatID
     
     parsed = careful_request("DELETE", build_request_URL(base_URL, endpoint), headers = build_headers(jwt))
+
+def name_ID_exists(nameID):
     
+    base_URL = "https://api.inaturalist.org/v1"
+    endpoint = "/taxa/"+nameID
+    
+    parsed = careful_request("GET", build_request_URL(base_URL, endpoint), headers = build_headers())
+    
+    try:
+        num_results = parsed["total_results"]
+    except:
+        return False
+    else:
+        return num_results >= 1
+
 def view_particular(iNatID):
     
     base_URL = "https://api.inaturalist.org/v1"

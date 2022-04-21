@@ -563,43 +563,47 @@ def determine_taxon_ID(MO_obs, MO_name):
     
     ### tier 0: name is already in dictionary
     if MO_name in tax_dict:
-        return tax_dict[MO_name]
+        iNat_name_ID = tax_dict[MO_name]
+        if inat_api.name_ID_exists(iNat_name_ID):
+            return tax_dict[MO_name]
+        else:
+            print("Name ID "+iNat_name_ID+" found in dictionary but not found on iNat. Searching for \""+MO_name+"\" on iNat.")
+            add_to_log("name ID not on iNat" + "\t" + iNat_name_ID)
+    else:
+        print("Name \""+MO_name+"\" is not in the local dictionary. Searching for it on iNat.")   
+        add_to_log("name not in dictionary" + "\t" + MO_name)
+        
+    search_name, rank = get_iNat_search_info(MO_name)
+    search_results = inat_api.search_for_name(search_name)
+    perfect_match_ID = get_search_match(search_name, rank, search_results)
+    
+    ### tier 1: found perfect match
+    if perfect_match_ID != None:
+        print("Found "+MO_name+".")
+        return perfect_match_ID
         
     else:
     
-        print("Name \""+MO_name+"\" is not in the local dictionary. Searching for it on iNat.")
-        add_to_log("name not in dictionary" + "\t" + MO_name)
-        search_name, rank = get_iNat_search_info(MO_name)
-        search_results = inat_api.search_for_name(search_name)
-        perfect_match_ID = get_search_match(search_name, rank, search_results)
-        
-        ### tier 1: found perfect match
-        if perfect_match_ID != None:
-            print("Found "+MO_name+".")
-            return perfect_match_ID
+        if " " in search_name:
+            search_genoid = search_name.split(" ")[0]
+            print("Not found. Searching for \""+search_genoid+"\" instead.")
+            search_results = inat_api.search_for_name(search_genoid)
+            genoid_match_ID = get_search_match(search_genoid, None, search_results)
             
-        else:
-        
-            if " " in search_name:
-                search_genoid = search_name.split(" ")[0]
-                print("Not found. Searching for \""+search_genoid+"\" instead.")
-                search_results = inat_api.search_for_name(search_genoid)
-                genoid_match_ID = get_search_match(search_genoid, None, search_results)
+            ### tier 2: found genoid match
+            if genoid_match_ID != None:
+                print("Found.")
+                return genoid_match_ID
                 
-                ### tier 2: found genoid match
-                if genoid_match_ID != None:
-                    print("Found.")
-                    return genoid_match_ID
-                    
-                ### tier 3: default to Life
-                else:
-                    print("Could not find name \""+search_genoid+"\" on iNat. Defaulting to taxon \"Life\".")
-                    return "48460" ## Life
-                    
-            ### genoid is no different, so tier 3: default to Life
+            ### tier 3: default to Life
             else:
-                print("Could not find name \""+MO_name+"\" on iNat. Defaulting to taxon \"Life\".")
-                return "48460" ## Life    
+                print("Could not find name \""+search_genoid+"\" on iNat. Defaulting to taxon \"Life\".")
+                return "48460" ## Life
+                
+        ### genoid is no different, so tier 3: default to Life
+        else:
+            print("Could not find name \""+MO_name+"\" on iNat. Defaulting to taxon \"Life\".")
+            return "48460" ## Life      
 
 def process_specimens_for_fields(MO_obs):
 
