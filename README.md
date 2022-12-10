@@ -4,7 +4,11 @@ This is a command-line program that will copy your observations, one-way, from [
 
 ## What you will have to do
 
-Just download and extract one of the latest .rar files in [Releases](https://github.com/JacobPulk/mirror/releases/), and run mirror.exe inside (**Windows 8 or later**) or run mirror.py (**any OS, if you have Python 3 with the [requests module](https://pypi.org/project/requests/) installed**). Hopefully, everything is self-explanatory.
+1. **Download** one of the latest .rar files in [Releases](https://github.com/JacobPulk/mirror/releases/): either the Windows version (**Windows 8 or later**), which contains a .exe, or the Python version (**any OS, if you have [Python 3](https://www.python.org/downloads/) with the [requests module](https://pypi.org/project/requests/) installed**), which contains .py scripts.
+
+2. **Extract** that .rar file to its own folder.
+
+3. In that folder, **run** mirror.exe (Windows version) or mirror.py with Python (Python version). Hopefully, the rest is self-explanatory.
 
 You will not have to share your MO or iNat password. You WILL have to authorize this program to read/write your observations on both platforms, which is very easy. At the start, you'll be prompted to (1) [create an "API Key" on MO](https://mushroomobserver.org/account/api_keys) and supply it; and (2) enter a generated inaturalist.com URL in your browser, where iNat will confirm your login and induce your browser send this program the necessary access token.
 
