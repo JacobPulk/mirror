@@ -52,7 +52,7 @@ Date posted to MO
 
 ## What (currently) will not be preserved on iNaturalist
 
-### Except for full-resolution images, I imagine most users will deem most of this data inessential for this undertaking. I am mirroring my own observations without it.
+### Except for full-resolution images, I imagine most users will deem most of this data inessential for this undertaking. I mirrored my own observations without it.
 
 Full-resolution images (iNat CANNOT do this)
 
