@@ -34,7 +34,7 @@ All images, in order (but BEWARE that iNat does not preserve full-size images)
 
 All image captions (indexed to photo #s and added to Notes - iNat hardly supports photo captions)
 
-Observation title, which will be your name proposal on iNat (names are first looked up in a human-curated dictionary matching MO names to iNat name IDs, then searched for on iNat for a perfect match (including listed synonyms), then searched for on iNat with just the first word of the name (usually the genus), or finally defaulted to "Life")
+Observation title, which will become your "Identification" (ID proposal) on iNat. To get from an MO name to the best equivalent iNat name, the former is first looked up in a human-curated dictionary matching names between platforms, then searched for on iNat for a perfect match (including listed synonyms), then searched for on iNat with just the first word of the name (usually the genus), or finally defaulted to "Life".
 
 All other name proposals, which will be included as the text within that name proposal (including the proposer's MO username and justification, everyone's votes, and the resulting "MO community vote" as a percentage)
 
