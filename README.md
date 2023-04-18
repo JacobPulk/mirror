@@ -66,7 +66,7 @@ Image original filenames
 
 Image quality ("No opinion" to "Great")
 
-Image copyright/license information*
+Image copyright/license information.* Images are posted to iNat under the default CC-BY-NC license.
 
 Image creation, last modified, last viewed timestamps, view count
 
