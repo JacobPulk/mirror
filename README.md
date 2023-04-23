@@ -6,7 +6,7 @@ This is a command-line program that will copy your observations, one-way, from [
 
 1. **Download** one of the .rar files in [the latest release](https://github.com/JacobPulk/mirror/releases/latest):  
   either the Windows version (**for Windows 8 or later**), which contains a .exe,    
-  or the Python version (**for any OS, as long as you have [Python 3](https://www.python.org/downloads/) with the [requests module](https://pypi.org/project/requests/) installed**), which contains .py scripts.
+  or the Python version (**for any OS, as long as you have [Python 3.9](https://www.python.org/downloads/) or later with the [requests module](https://pypi.org/project/requests/) installed**), which contains .py scripts.
 
 2. **Extract** that .rar file to its own folder.
 
